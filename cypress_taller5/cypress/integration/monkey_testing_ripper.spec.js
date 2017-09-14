@@ -3,18 +3,17 @@ describe('Los estudiantes under monkeys', function() {
         cy.visit('https://losestudiantes.co');
         cy.contains('Cerrar').click();
         cy.wait(1000);
-        randomClick(10);
+        randomEvent(10);
     })
 })
 
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+};
+
 function randomClick(monkeysLeft) {
-
-    function getRandomInt(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min)) + min;
-    };
-
     var monkeysLeft = monkeysLeft;
     if(monkeysLeft > 0) {
         cy.get('a').then($links => {
@@ -29,16 +28,11 @@ function randomClick(monkeysLeft) {
 }
 
 function randomEvent(cantidadEventos) {
-
-    function getRandomInt(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min)) + min;
-    };
-
     var cantidadEventos = cantidadEventos;
     if(cantidadEventos > 0) {
-        switch(getRandomInt(0, 4)) {
+        var asdf = getRandomInt(0, 4);
+        alert(asdf)
+        switch(asdf) {
             case 0:
                 // Hacer click en un link al azar
                 cy.get('a').then($links => {
@@ -47,16 +41,16 @@ function randomEvent(cantidadEventos) {
                         cy.wrap(randomLink).click({force: true});
                         cantidadEventos = cantidadEventos - 1;
                     }
-                    setTimeout(randomClick, 1000, cantidadEventos);
+                    setTimeout(randomEvent, 1000, cantidadEventos);
                 });
                 break;
             case 1:
                 // Llenar un campo de texto al azar
                 break;
-            case 3:
+            case 2:
                 // Seleccionar un combo al azar
                 break;
-            case 4:
+            case 3:
                 // Hacer click en un botón al azar
                 break;
         }
