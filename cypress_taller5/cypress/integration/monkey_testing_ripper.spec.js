@@ -30,15 +30,14 @@ function randomClick(monkeysLeft) {
 function randomEvent(cantidadEventos) {
     var cantidadEventos = cantidadEventos;
     if(cantidadEventos > 0) {
-        var asdf = getRandomInt(0, 4);
-        alert(asdf)
-        switch(asdf) {
+        var eventoAleatorio = 2;//getRandomInt(0, 4);
+        switch(eventoAleatorio) {
             case 0:
                 // Hacer click en un link al azar
                 cy.get('a').then($links => {
-                    var randomLink = $links.get(getRandomInt(0, $links.length));
-                    if(!Cypress.Dom.isHidden(randomLink)) {
-                        cy.wrap(randomLink).click({force: true});
+                    var aleatorio = $links.get(getRandomInt(0, $links.length));
+                    if(!Cypress.Dom.isHidden(aleatorio)) {
+                        cy.wrap(aleatorio).click({force: true});
                         cantidadEventos = cantidadEventos - 1;
                     }
                     setTimeout(randomEvent, 1000, cantidadEventos);
@@ -46,12 +45,36 @@ function randomEvent(cantidadEventos) {
                 break;
             case 1:
                 // Llenar un campo de texto al azar
+                cy.get('input').then($inputs => {
+                    var aleatorio = $inputs.get(getRandomInt(0, $inputs.length));
+                    if(!Cypress.Dom.isHidden(aleatorio)) {
+                        cy.wrap(aleatorio).click({force: true}).type("aaaaaaaaaaaaaaaa");
+                        cantidadEventos = cantidadEventos - 1;
+                    }
+                    setTimeout(randomEvent, 1000, cantidadEventos);
+                });
                 break;
             case 2:
                 // Seleccionar un combo al azar
+                cy.get('select').then($selects => {
+                    var aleatorio = $selects.get(getRandomInt(0, $selects.length));
+                    if(!Cypress.Dom.isHidden(aleatorio)) {
+                        cy.wrap(aleatorio).select('Arte');
+                        cantidadEventos = cantidadEventos - 1;
+                    }
+                    setTimeout(randomEvent, 1000, cantidadEventos);
+                });
                 break;
             case 3:
                 // Hacer click en un botón al azar
+                cy.get('button').then($buttons => {
+                    var aleatorio = $buttons.get(getRandomInt(0, $buttons.length));
+                    if(!Cypress.Dom.isHidden(aleatorio)) {
+                        cy.wrap(aleatorio).click({force: true})
+                        cantidadEventos = cantidadEventos - 1;
+                    }
+                    setTimeout(randomEvent, 1000, cantidadEventos);
+                });
                 break;
         }
     }
