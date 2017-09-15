@@ -30,7 +30,7 @@ function randomClick(monkeysLeft) {
 function randomEvent(cantidadEventos) {
     var cantidadEventos = cantidadEventos;
     if(cantidadEventos > 0) {
-        var eventoAleatorio = 2;//getRandomInt(0, 4);
+        var eventoAleatorio = getRandomInt(0, 4);
         switch(eventoAleatorio) {
             case 0:
                 // Hacer click en un link al azar
@@ -48,7 +48,7 @@ function randomEvent(cantidadEventos) {
                 cy.get('input').then($inputs => {
                     var aleatorio = $inputs.get(getRandomInt(0, $inputs.length));
                     if(!Cypress.Dom.isHidden(aleatorio)) {
-                        cy.wrap(aleatorio).click({force: true}).type("aaaaaaaaaaaaaaaa");
+                        cy.wrap(aleatorio).click({force: true}).type('!#%%/$(/()%&#$R!#$');
                         cantidadEventos = cantidadEventos - 1;
                     }
                     setTimeout(randomEvent, 1000, cantidadEventos);
@@ -59,7 +59,10 @@ function randomEvent(cantidadEventos) {
                 cy.get('select').then($selects => {
                     var aleatorio = $selects.get(getRandomInt(0, $selects.length));
                     if(!Cypress.Dom.isHidden(aleatorio)) {
-                        cy.wrap(aleatorio).select('Arte');
+                        var comboBox = cy.wrap(aleatorio);
+                        comboBox.then($options => {
+                            comboBox.select($options.get(0).value);
+                        });
                         cantidadEventos = cantidadEventos - 1;
                     }
                     setTimeout(randomEvent, 1000, cantidadEventos);
