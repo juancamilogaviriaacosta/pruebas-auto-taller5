@@ -14,7 +14,15 @@ function unleashGremlins(ttl, callback) {
         horde.stop();
         callback();
     }
-    var horde = window.gremlins.createHorde();
+    var horde = window.gremlins.createHorde()
+        .gremlin(gremlins.species.formFiller().canFillElement(function(element) { return true }))
+        .gremlin(gremlins.species.clicker().clickTypes(['click', 'button']))
+        .gremlin(gremlins.species.toucher())
+        .gremlin(gremlins.species.scroller())
+        .strategy(gremlins.strategies.distribution()
+        .delay(50)
+        .distribution([0.2, 0.5, 0.2, 0.1])) //Probabilidad de ejecucion: formFiller=0.2, clicker=0.5, toucher=0.2, scroller=0.1
+
     horde.seed(1234);
 
     horde.after(callback);
